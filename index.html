@@ -47,9 +47,22 @@
         /* Main Body Background Image */
         background-image: url("9.jpg"); /* REPLACE THIS URL with your actual main background image link */
         background-size: cover;
-        background-position: center;
-        background-attachment: fixed; /* Fixed background for the entire body */
+        background-position: center center; /* Start from center */
+        /* background-attachment: fixed;  Removed to allow background-position animation */
         color: var(--color-text-primary); /* Apply primary text color */
+
+        /* Added for moving background effect */
+        animation: backgroundPan 120s linear infinite alternate; /* Slower animation, alternates direction */
+      }
+
+      /* Keyframes for the moving background effect */
+      @keyframes backgroundPan {
+        0% {
+          background-position: 0% 0%; /* Start top-left */
+        }
+        100% {
+          background-position: 100% 100%; /* Move to bottom-right */
+        }
       }
 
       /* Light Theme CSS Variables (Adjusted to be less bright than pure white) */
@@ -1689,7 +1702,7 @@
             "Msikiti hufunguliwa kwa sala zote za kila siku. Shule na kituo cha jamii vina saa maalum za kazi ambazo zinaweza kupatikana kwenye sehemu zao husika au kwa kuwasiliana nasi moja kwa moja.",
           faq_q2: "Do you offer classes for new Muslims?",
           faq_a2:
-            "Ndio, tunatoa madarasa ya utangulizi kwa Waislamu wapya yanayofunika misingi ya Uislamu, sala, na usomaji wa Quran. Tafadhali wasiliana na ofisi kwa maelezo zaidi.",
+            "Ndio, tunatoa madarasa ya utangulishi kwa Waislamu wapya yanayofunika misingi ya Uislamu, sala, na usomaji wa Quran. Tafadhali wasiliana na ofisi kwa maelezo zaidi.",
           faq_q3: "How can I donate to the Centre?",
           faq_a3:
             'Unaweza kuchangia mtandaoni kupitia kitufe chetu cha "Changia Sasa", au tembelea Kituo moja kwa moja. Michango yako inathaminiwa sana na inatumika kudumisha vituo vyetu na programu zetu.',
