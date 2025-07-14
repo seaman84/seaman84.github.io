@@ -315,9 +315,78 @@
       #contact-section {
         background-image: url("cd5b1758007ccefc5122105d2b8e658e.jpg"); /* REPLACE with your image */
       }
+
+      /* Password protection overlay styles */
+      #password-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Ensure it's on top of everything */
+        flex-direction: column;
+        color: var(--color-text-primary);
+        text-align: center;
+      }
+
+      #password-overlay h2 {
+        color: var(--color-accent-yellow);
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      #password-overlay input {
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--color-text-secondary);
+        background-color: var(--color-card-bg);
+        color: var(--color-text-primary);
+        margin-bottom: 1rem;
+        outline: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      #password-overlay button {
+        background-color: var(--color-accent-green);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #password-overlay button:hover {
+        background-color: var(--color-accent-yellow);
+      }
+
+      #password-error-message {
+        color: #ff6347; /* Tomato red for error */
+        margin-top: 0.5rem;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+      <h2>Enter Password to Access</h2>
+      <input
+        type="password"
+        id="password-input"
+        placeholder="Enter password"
+        class="w-80"
+      />
+      <button id="submit-password">Access Website</button>
+      <p id="password-error-message" class="hidden"></p>
+    </div>
+
     <header
       class="bg-header-footer-bg text-text-primary p-4 shadow-lg rounded-b-xl bg-opacity-90 frosted-glass relative z-40"
     >
@@ -1388,6 +1457,39 @@
     </div>
 
     <script>
+      // Define the password here
+      const CORRECT_PASSWORD = "DrAliFeedback"; // You can change this password
+
+      // Get elements for password protection
+      const passwordOverlay = document.getElementById("password-overlay");
+      const passwordInput = document.getElementById("password-input");
+      const submitPasswordBtn = document.getElementById("submit-password");
+      const passwordErrorMessage = document.getElementById(
+        "password-error-message"
+      );
+
+      // Function to check password
+      function checkPassword() {
+        if (passwordInput.value === CORRECT_PASSWORD) {
+          passwordOverlay.style.display = "none"; // Hide the overlay
+          // Initialize other page functionalities after successful login
+          initializePageFunctions();
+        } else {
+          passwordErrorMessage.textContent =
+            "Incorrect password. Please try again.";
+          passwordErrorMessage.classList.remove("hidden");
+          passwordInput.value = ""; // Clear input
+        }
+      }
+
+      // Event listeners for password input
+      submitPasswordBtn.addEventListener("click", checkPassword);
+      passwordInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          checkPassword();
+        }
+      });
+
       // Language content dictionary
       const translations = {
         en: {
@@ -1718,7 +1820,7 @@
           send_message_title: "أرسل لنا رسالة",
           form_name_label: "الاسم",
           form_name_placeholder: "اسمك",
-          form_email_label: "البريد الإلكتروني",
+          form_email_label: "البريد الإلكتروني:",
           form_email_placeholder: "your@example.com",
           form_subject_label: "الموضوع",
           form_subject_placeholder: "موضوع رسالتك",
@@ -1956,7 +2058,8 @@
         .getElementById("contact-form")
         .addEventListener("submit", function (e) {
           e.preventDefault(); // Prevent default form submission
-          alert(
+          // Changed alert to a custom message box for better UX
+          showMessageBox(
             "Message Sent! (Note: This is a placeholder. Actual sending requires backend setup.)"
           );
           this.reset(); // Clear the form
@@ -1972,24 +2075,14 @@
             console.log(
               "Push notifications are supported. Implement service worker registration and subscription here."
             );
-            alert(
+            // Changed alert to a custom message box for better UX
+            showMessageBox(
               "Subscription initiated! (Requires backend setup for full functionality)"
             );
-            // Example:
-            // navigator.serviceWorker.register('/service-worker.js')
-            // .then(registration => {
-            //     return registration.pushManager.subscribe({
-            //         userVisibleOnly: true,
-            //         applicationServerKey: 'YOUR_PUBLIC_VAPID_KEY_HERE'
-            //     });
-            // })
-            // .then(subscription => {
-            //     console.log('User subscribed:', subscription);
-            //     // Send subscription object to your server
-            // })
-            // .catch(error => console.error('Push subscription failed:', error));
           } else {
-            alert("Push notifications are not supported by your browser.");
+            showMessageBox(
+              "Push notifications are not supported by your browser."
+            );
           }
         });
 
@@ -2036,10 +2129,6 @@
         });
       }, observerOptions);
 
-      animateOnScrollElements.forEach((element) => {
-        observer.observe(element);
-      });
-
       // Search functionality
       let originalContents = []; // To store original text nodes for clearing highlights
 
@@ -2051,6 +2140,24 @@
           }
         });
         originalContents = []; // Clear the array
+      }
+
+      function showMessageBox(message) {
+        const searchMessageBox = document.getElementById("search-message-box");
+        searchMessageBox.textContent = message;
+        searchMessageBox.style.display = "block";
+        searchMessageBox.classList.add("show");
+
+        setTimeout(() => {
+          searchMessageBox.classList.remove("show");
+          searchMessageBox.addEventListener(
+            "transitionend",
+            function handler() {
+              searchMessageBox.style.display = "none";
+              searchMessageBox.removeEventListener("transitionend", handler);
+            }
+          );
+        }, 5000);
       }
 
       function performSearch() {
@@ -2107,26 +2214,12 @@
 
         // Display search results message
         if (matchesFound > 0) {
-          searchMessageBox.textContent = `Found ${matchesFound} occurrence(s) of "${searchTerm}".`;
-          searchMessageBox.style.display = "block";
-          searchMessageBox.classList.add("show");
-        } else {
-          searchMessageBox.textContent = `No occurrences of "${searchTerm}" found.`;
-          searchMessageBox.style.display = "block";
-          searchMessageBox.classList.add("show");
-        }
-
-        // Automatically hide message after a few seconds
-        setTimeout(() => {
-          searchMessageBox.classList.remove("show");
-          searchMessageBox.addEventListener(
-            "transitionend",
-            function handler() {
-              searchMessageBox.style.display = "none";
-              searchMessageBox.removeEventListener("transitionend", handler);
-            }
+          showMessageBox(
+            `Found ${matchesFound} occurrence(s) of "${searchTerm}".`
           );
-        }, 5000);
+        } else {
+          showMessageBox(`No occurrences of "${searchTerm}" found.`);
+        }
       }
 
       // Attach search event listeners
@@ -2215,8 +2308,8 @@
         showSlides((slideIndex = n));
       }
 
-      // Run functions when the window loads
-      window.onload = function () {
+      // This function will be called AFTER the password is correctly entered
+      function initializePageFunctions() {
         displayCurrentDate();
         fetchPrayerTimes(); // Fetch real prayer times
         loadEvents(); // Load events
@@ -2245,7 +2338,16 @@
 
         // Initialize slideshow
         showSlides(slideIndex); // <--- Starts the slideshow on page load!
-      };
+
+        // Observe elements for on-scroll animation after the page is visible
+        animateOnScrollElements.forEach((element) => {
+          observer.observe(element);
+        });
+      }
+
+      // Initially, only the password overlay is visible. The rest of the page
+      // functionality is initialized only after the correct password is entered.
+      // This ensures the content is 'protected' until access is granted.
     </script>
   </body>
 </html>
