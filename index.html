@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kabarnet Jamia Islamic Centre</title>
+
+    <script type="text/tailwindcss">
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              // Define colors using CSS variables
+              'primary-bg': 'var(--color-primary-bg)',
+              'card-bg': 'var(--color-card-bg)',
+              'accent-green': 'var(--color-accent-green)',
+              'accent-yellow': 'var(--color-accent-yellow)',
+              'header-footer-bg': 'var(--color-header-footer-bg)',
+              'text-primary': 'var(--color-text-primary)',
+              'text-secondary': 'var(--color-text-secondary)',
+              // Add a dark-bg for consistency within dark mode components like audio players
+              'dark-bg': 'var(--color-dark-bg)',
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        /* Default Dark Theme CSS Variables (Reverted to a less black dark theme) */
+        --color-primary-bg: #1a202c; /* Darker slate/blue-gray */
+        --color-card-bg: #2d3748; /* Slightly lighter dark slate */
+        --color-accent-green: #34d399; /* Vibrant green */
+        --color-accent-yellow: #fbbf24; /* Golden yellow */
+        --color-header-footer-bg: #1a202c; /* Darker slate/blue-gray */
+        --color-text-primary: #e2e8f0; /* Light gray for main text */
+        --color-text-secondary: #cbd5e0; /* Lighter gray for secondary text */
+        --color-dark-bg: #222c3d; /* Even darker for some internal components */
+
+        /* Main Body Background Image */
+        background-image: url("9.jpg"); /* REPLACE THIS URL with your actual main background image link */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Fixed background for the entire body */
+        color: var(--color-text-primary); /* Apply primary text color */
+      }
+
+      /* Light Theme CSS Variables (Adjusted to be less bright than pure white) */
+      body.light-theme {
+        --color-primary-bg: #f8fafc; /* Very light gray */
+        --color-card-bg: #ffffff; /* White for cards */
+        --color-accent-green: #10b981; /* Slightly darker green for contrast */
+        --color-accent-yellow: #f59e0b; /* Slightly darker yellow for contrast */
+        --color-header-footer-bg: #e2e8f0; /* Light blue-gray for header/footer */
+        --color-text-primary: #334155; /* Dark slate for main text */
+        --color-text-secondary: #64748b; /* Medium slate for secondary text */
+        --color-dark-bg: #f1f5f9; /* Light grey for internal components */
+      }
+
+      /* Custom styles for subtle hover effects */
+      .card-hover-effect {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+          background-color 0.3s ease-in-out;
+        /* Add initial subtle shadow for depth */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      .card-hover-effect:hover {
+        transform: translateY(-8px); /* Slightly more lift */
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2),
+          0 10px 10px -5px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+        border-color: var(
+          --color-accent-green
+        ); /* Optional: subtle border glow */
+      }
+      body.light-theme .card-hover-effect:hover {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Enhanced Button Hover Effect */
+      button {
+        transition: all 0.3s ease-in-out;
+        /* Add initial subtle shadow */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      button:hover {
+        transform: scale(1.08); /* Slightly more scale */
+        filter: brightness(1.2); /* Brighter effect */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+      }
+      body.light-theme button:hover {
+        filter: brightness(1.05); /* Less intense brightness for light theme */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Futuristic transparency with blur (frosted glass effect) */
+      .frosted-glass {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px); /* For Safari */
+      }
+      /* Gen Z Nav Link Hover Effect */
+      .genz-nav-link {
+        transition: background-color 0.3s ease-in-out,
+          transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        position: relative; /* For pseudo-element effects */
+        overflow: hidden; /* For underline animation */
+      }
+      .genz-nav-link:hover {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.15
+        ); /* Slightly more visible background on hover */
+        color: #ffffff; /* Ensure text remains white */
+        transform: scale(1.05); /* Slightly enlarge on hover */
+      }
+      body.light-theme .genz-nav-link:hover {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.08
+        ); /* Slightly more visible dark background on hover for light theme */
+        color: var(--color-text-primary); /* Keep text primary color */
+      }
+      /* Adding a subtle glowing border/underline to nav links on hover */
+      .genz-nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px; /* Thickness of the underline */
+        background-color: var(
+          --color-accent-yellow
+        ); /* Color of the underline */
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+      }
+      .genz-nav-link:hover::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+        backdrop-filter: blur(5px); /* Frosted glass for modal background */
+        -webkit-backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: var(--color-card-bg); /* Use card background color */
+        margin: auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+        color: var(--color-text-primary); /* Use primary text color */
+      }
+
+      /* Add Animation */
+      @keyframes animatetop {
+        from {
+          top: -300px;
+          opacity: 0;
+        }
+        to {
+          top: 0;
+          opacity: 1;
+        }
+      }
+
+      .close-button {
+        color: var(--color-text-secondary); /* Use secondary text color */
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close-button:hover,
+      .close-button:focus {
+        color: var(--color-text-primary); /* Lighter on hover */
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* On-scroll animation */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Search Highlight */
+      .highlight {
+        background-color: var(
+          --color-accent-yellow
+        ); /* Use golden yellow for highlight */
+        color: var(--color-primary-bg); /* Dark text on highlight */
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      /* Message Box for search results */
+      #search-message-box {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--color-card-bg);
+        color: var(--color-text-primary);
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      #search-message-box.show {
+        opacity: 1;
+      }
+
+      /* Section Background Images and Overlays */
+      section {
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        position: relative;
+        z-index: 1;
+        overflow: hidden; /* Ensure content doesn't spill out */
+      }
+      section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(
+          --color-card-bg
+        ); /* Use card-bg for overlay color */
+        opacity: 0.8; /* Adjust opacity as needed for readability */
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: -1;
+        border-radius: inherit;
+      }
+
+      /* Specific background images for sections */
+      #home-section {
+        background-image: url("5.jpg"); /* REPLACE with your image */
+      }
+      #about-us-section {
+        background-image: url("052ce418f42bf2f92d7028f9e8a157f2.jpg"); /* REPLACE with your image */
+      }
+      #prayer-times-section {
+        background-image: url("7.jpg"); /* REPLACE with your image */
+      }
+      #events-section {
+        background-image: url("7.jpg"); /* REPLACE with your image */
+      }
+      #school-section {
+        background-image: url("7.jpg"); /* REPLACE with your image */
+      }
+      #community-centre-section {
+        background-image: url("7.jpg"); /* REPLACE with your image */
+      }
+      #gallery-section {
+        background-image: url("c6fd66c10c254ede35b5f74953b55a38.jpg"); /* REPLACE with your image */
+      }
+      #imam-message-section {
+        background-image: url("4caa0163ae5ebd3aa60d094f5c6c5ccf.jpg"); /* REPLACE with your image */
+      }
+      #leadership-section {
+        background-image: url("c6fd66c10c254ede35b5f74953b55a38.jpg"); /* REPLACE with your image */
+      }
+      #media-section {
+        background-image: url("da190b8486e119b24bcd315430979518.jpg"); /* REPLACE with your image */
+      }
+      #faq-section {
+        background-image: url("18bf5c57a5750e0decefb08238b2f5a2.jpg"); /* REPLACE with your image */
+      }
+      #contact-section {
+        background-image: url("cd5b1758007ccefc5122105d2b8e658e.jpg"); /* REPLACE with your image */
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <header
+      class="bg-header-footer-bg text-text-primary p-4 shadow-lg rounded-b-xl bg-opacity-90 frosted-glass relative z-40"
+    >
+      <div
+        class="container mx-auto flex flex-col sm:flex-row justify-between items-center"
+      >
+        <div class="flex items-center mb-2 sm:mb-0">
+          <a href="#home-section" class="flex items-center">
+            <img
+              src="6.jpg"
+              alt="Kabarnet Jamia Islamic Centre Logo"
+              class="h-12 rounded-md object-contain mr-3"
+            />
+            <h1 class="text-3xl font-bold rounded-md text-accent-yellow">
+              Kabarnet Jamia Islamic Centre
+            </h1>
+          </a>
+        </div>
+        <nav class="w-full sm:w-auto overflow-visible">
+          <ul
+            class="flex flex-wrap justify-center sm:space-x-4 space-x-2 font-semibold text-lg"
+          >
+            <li>
+              <a
+                href="#home-section"
+                class="genz-nav-link scroll-link py-2 px-4"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#about-us-section"
+                class="genz-nav-link scroll-link py-2 px-4"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="#prayer-times-section"
+                class="genz-nav-link scroll-link py-2 px-4"
+                >Prayer Times</a
+              >
+            </li>
+            <li>
+              <a
+                href="#events-section"
+                class="genz-nav-link scroll-link py-2 px-4"
+                >Events</a
+              >
+            </li>
+
+            <li class="relative group">
+              <button class="genz-nav-link py-2 px-4 flex items-center">
+                <span data-lang-key="more_dropdown_title">More</span>
+                <svg
+                  class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <ul
+                class="absolute hidden group-hover:block bg-header-footer-bg text-text-primary rounded-lg shadow-lg py-2 z-50 min-w-[160px] frosted-glass"
+              >
+                <li>
+                  <a
+                    href="#school-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="school_nav"
+                    >School</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#community-centre-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="community_centre_nav"
+                    >Community Centre</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#gallery-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="gallery_nav"
+                    >Gallery</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#imam-message-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="imam_message_nav"
+                    >Imam's Message</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#leadership-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="leadership_nav"
+                    >Leadership</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#media-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="media_nav"
+                    >Media</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#faq-section"
+                    class="block px-4 py-2 text-sm hover:bg-card-bg rounded-md scroll-link"
+                    data-lang-key="faq_nav"
+                    >FAQ</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                href="#contact-section"
+                class="genz-nav-link scroll-link py-2 px-4"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="flex items-center space-x-4 mt-2 sm:mt-0">
+          <div class="relative">
+            <select
+              id="language-switcher"
+              class="bg-card-bg text-text-primary rounded-full py-1 px-3 text-sm frosted-glass"
+            >
+              <option value="en">English</option>
+              <option value="sw">Swahili</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+          <button
+            id="theme-toggle"
+            class="bg-card-bg text-text-primary rounded-full py-1 px-3 text-sm frosted-glass"
+          >
+            <span id="theme-toggle-text" data-lang-key="theme_toggle_text"
+              >Light Mode</span
+            >
+          </button>
+          <div class="relative flex items-center">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search..."
+              class="bg-card-bg text-text-primary rounded-full py-1 px-3 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-accent-green frosted-glass"
+            />
+            <button
+              id="search-button"
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="search-message-box"></div>
+
+    <main class="flex-grow container mx-auto p-4 py-8">
+      <section
+        id="home-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="welcome_title"
+        >
+          Welcome to Kabarnet Jamia Islamic Centre!
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed"
+          data-lang-key="welcome_text"
+        >
+          We are a vibrant community dedicated to serving the spiritual, social,
+          and educational needs of Muslims in Kabarnet. Join us for prayers,
+          community events, and learning opportunities. Our centre encompasses a
+          Masjid, a School, and a Community Centre, all working together to
+          foster a strong and knowledgeable Muslim community.
+        </p>
+        <button
+          class="mt-6 bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105 scroll-button"
+          data-scroll-to="about-us-section"
+          data-lang-key="discover_more"
+        >
+          Discover More
+        </button>
+      </section>
+
+      <section
+        id="about-us-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="about_title"
+        >
+          About Kabarnet Jamia Islamic Centre
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed mb-4"
+          data-lang-key="about_intro"
+        >
+          Kabarnet Jamia Islamic Centre was established with the vision of
+          becoming a beacon of Islamic knowledge and community service in
+          Kabarnet, Baringo County, Kenya. Our journey began with a commitment
+          to provide a nurturing environment for spiritual growth, education,
+          and social cohesion.
+        </p>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <h3
+              class="text-2xl font-semibold text-accent-green mb-2"
+              data-lang-key="mission_title"
+            >
+              Our Mission
+            </h3>
+            <p class="text-text-secondary" data-lang-key="mission_text">
+              To uphold the values of Islam, promote peace, understanding, and
+              compassion, and empower individuals through comprehensive
+              religious education.
+            </p>
+          </div>
+          <div>
+            <h3
+              class="text-2xl font-semibold text-accent-green mb-2"
+              data-lang-key="vision_title"
+            >
+              Our Vision
+            </h3>
+            <p class="text-text-secondary" data-lang-key="vision_text">
+              To be a leading Islamic institution fostering a strong,
+              knowledgeable, and compassionate Muslim community that contributes
+              positively to society.
+            </p>
+          </div>
+          <div>
+            <h3
+              class="text-2xl font-semibold text-accent-green mb-2"
+              data-lang-key="values_title"
+            >
+              Our Values
+            </h3>
+            <p class="text-text-secondary" data-lang-key="values_text">
+              Faith, Knowledge, Community, Compassion, Integrity, and Service to
+              Humanity.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+      >
+        <div
+          id="prayer-times-section"
+          class="bg-card-bg p-6 rounded-2xl shadow-lg transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+        >
+          <h3
+            class="text-2xl font-semibold text-text-primary mb-3"
+            data-lang-key="prayer_times_title"
+          >
+            Daily Prayer Times
+          </h3>
+          <p id="current-date" class="text-text-secondary text-sm mb-2"></p>
+          <p class="text-text-secondary" data-lang-key="prayer_times_intro">
+            Stay updated with our daily prayer schedules. We welcome everyone to
+            join our congregational prayers.
+          </p>
+          <ul class="mt-4 text-text-secondary">
+            <li id="fajr-time">Fajr: Loading...</li>
+            <li id="dhuhr-time">Dhuhr: Loading...</li>
+            <li id="asr-time">Asr: Loading...</li>
+            <li id="maghrib-time">Maghrib: Loading...</li>
+            <li id="isha-time">Isha: Loading...</li>
+          </ul>
+        </div>
+        <div
+          id="events-section"
+          class="bg-card-bg p-6 rounded-2xl shadow-lg transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+        >
+          <h3
+            class="text-2xl font-semibold text-text-primary mb-3"
+            data-lang-key="events_title"
+          >
+            Upcoming Events
+          </h3>
+          <div id="events-list" class="text-text-secondary">
+            <p class="mb-2" data-lang-key="no_events">
+              No upcoming events scheduled at the moment. Please check back
+              soon!
+            </p>
+          </div>
+          <button
+            class="mt-4 bg-accent-green hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 scroll-button"
+            data-scroll-to="events-section"
+            data-lang-key="view_all_events"
+          >
+            View All Events
+          </button>
+        </div>
+        <div
+          class="bg-card-bg p-6 rounded-2xl shadow-lg transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+        >
+          <h3
+            class="text-2xl font-semibold text-text-primary mb-3"
+            data-lang-key="support_title"
+          >
+            Support Our Centre
+          </h3>
+          <p class="text-text-secondary" data-lang-key="support_text">
+            Your generous contributions help us maintain our facilities and
+            expand our programs. Support the growth of our community.
+          </p>
+          <button
+            id="donate-button"
+            class="mt-4 bg-accent-green hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300"
+            data-lang-key="donate_now"
+          >
+            Donate Now
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="school-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="school_title"
+        >
+          Our School
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed"
+          data-lang-key="school_text"
+        >
+          The Kabarnet Jamia Islamic Centre School provides quality Islamic and
+          secular education to children and adults. Our curriculum is designed
+          to nurture well-rounded individuals who are strong in faith and
+          equipped with modern knowledge. We offer classes from early childhood
+          to advanced Islamic studies.
+        </p>
+        <button
+          class="mt-6 bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105 scroll-button"
+          data-scroll-to="school-section"
+          data-lang-key="learn_programs"
+        >
+          Learn About Our Programs
+        </button>
+      </section>
+
+      <section
+        id="community-centre-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="community_title"
+        >
+          Our Community Centre
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed"
+          data-lang-key="community_text"
+        >
+          The Community Centre is the heart of our social activities, providing
+          a space for unity, support, and welfare. We organize various programs
+          including youth activities, women's circles, interfaith dialogues, and
+          social support initiatives. Our aim is to build a strong,
+          compassionate, and interconnected community.
+        </p>
+        <button
+          class="mt-6 bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300 transform hover:scale-105 scroll-button"
+          data-scroll-to="community-centre-section"
+          data-lang-key="explore_initiatives"
+        >
+          Explore Community Initiatives
+        </button>
+      </section>
+
+      <section
+        id="gallery-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="gallery_title"
+        >
+          Photo Gallery
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed mb-6"
+          data-lang-key="gallery_text"
+        >
+          Explore moments from our mosque, school, and community events.
+        </p>
+
+        <div
+          class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-xl"
+        >
+          <div
+            id="slideshow-container"
+            class="flex transition-transform duration-700 ease-in-out"
+          >
+            <div class="slide min-w-full">
+              <img
+                src="500791591_122235238394230806_3199238244762284820_n.jpg"
+                alt="Mosque Interior"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+            <div class="slide min-w-full">
+              <img
+                src="516259712_122245017038230806_813011337768609965_n.jpg"
+                alt="Community Event"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+            <div class="slide min-w-full">
+              <img
+                src="499830074_122238241808230806_1132189580959120377_n.jpg"
+                alt="School Activity"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+            <div class="slide min-w-full">
+              <img
+                src="1.3.jpg"
+                alt="Prayer Gathering"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+            <div class="slide min-w-full">
+              <img
+                src="12.jpg"
+                alt="Centre Exterior"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+            <div class="slide min-w-full">
+              <img
+                src="506662738_122238931658230806_8864187243741516857_n.jpg"
+                alt="Youth Program"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+          </div>
+
+          <button
+            class="absolute top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-80 transition z-10"
+            onclick="plusSlides(-1)"
+          >
+            &#10094;
+          </button>
+          <button
+            class="absolute top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-80 transition z-10"
+            onclick="plusSlides(1)"
+          >
+            &#10095;
+          </button>
+
+          <div
+            class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10"
+          >
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(1)"
+            ></span>
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(2)"
+            ></span>
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(3)"
+            ></span>
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(4)"
+            ></span>
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(5)"
+            ></span>
+            <span
+              class="dot w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-80 transition"
+              onclick="currentSlide(6)"
+            ></span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="imam-message-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="imam_message_title"
+        >
+          Imam's Message
+        </h2>
+        <div
+          class="text-text-secondary text-lg leading-relaxed"
+          data-lang-key="imam_message_text"
+        >
+          <p class="mb-4">Assalamu Alaikum wa Rahmatullahi wa Barakatuh,</p>
+          <p class="mb-4">Dear beloved community members,</p>
+          <p class="mb-4">
+            It is with immense gratitude to Allah (SWT) that I address you from
+            the heart of Kabarnet Jamia Islamic Centre. Our mosque stands as a
+            beacon of guidance, a hub for learning, and a sanctuary for
+            spiritual reflection. In these challenging times, it is more
+            important than ever that we strengthen our bonds of brotherhood and
+            sisterhood, uphold the teachings of our beautiful deen, and strive
+            to embody the noble character of Prophet Muhammad (peace be upon
+            him).
+          </p>
+          <p class="mb-4">
+            We are committed to providing a nurturing environment for all ages,
+            fostering a deep understanding of the Quran and Sunnah, and actively
+            contributing to the well-being of our wider society. May Allah bless
+            our efforts and unite our hearts in His obedience.
+          </p>
+          <p class="font-semibold mt-6">Wassalam,</p>
+          <p class="font-semibold">Imam Said Muhodhari</p>
+        </div>
+      </section>
+
+      <section
+        id="leadership-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="leadership_title"
+        >
+          Our Leadership
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed mb-6"
+          data-lang-key="leadership_intro"
+        >
+          Meet the dedicated individuals who guide and serve the Kabarnet Jamia
+          Islamic Centre community.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div
+            class="bg-primary-bg p-6 rounded-lg shadow-md text-center transition duration-300 transform hover:scale-105 hover:shadow-xl border border-accent-green"
+          >
+            <img
+              src="ali_mustafa_y_photo_0.jpg"
+              alt="Dr. Mustafa Ali Photo"
+              class="rounded-full w-24 h-24 mx-auto mb-4 object-cover border-2 border-accent-yellow"
+            />
+            <h3
+              class="text-2xl font-semibold text-accent-yellow mb-1"
+              data-lang-key="leader1_name"
+            >
+              Dr. Mustafa Ali
+            </h3>
+            <p class="text-accent-green mb-2" data-lang-key="leader1_role">
+              Chairman, Management Committee
+            </p>
+            <p class="text-text-primary text-sm" data-lang-key="leader1_bio">
+              A dedicated leader with a deep commitment to community service and
+              mosque administration. Dr. Mustafa has been pivotal in steering
+              the Kabarnet Jamia Islamic Centre toward growth and spiritual
+              excellence.
+            </p>
+          </div>
+          <div
+            class="bg-primary-bg p-6 rounded-lg shadow-md text-center transition duration-300 transform hover:scale-105 hover:shadow-xl border border-accent-green"
+          >
+            <img
+              src="Capture1.PNG"
+              alt="Imam Said Muhodhari Photo"
+              class="rounded-full w-24 h-24 mx-auto mb-4 object-cover border-2 border-accent-yellow"
+            />
+            <h3
+              class="text-2xl font-semibold text-accent-yellow mb-1"
+              data-lang-key="leader2_name"
+            >
+              Imam Said Muhodhari
+            </h3>
+            <p class="text-accent-green mb-2" data-lang-key="leader2_role">
+              Imam
+            </p>
+            <p class="text-text-primary text-sm" data-lang-key="leader2_bio">
+              An inspiring spiritual leader, Imam Said brings a wealth of
+              knowledge and compassion to the community. His guidance fosters
+              deep understanding of Islamic teachings and unity within the
+              mosque.
+            </p>
+          </div>
+          <div
+            class="bg-primary-bg p-6 rounded-lg shadow-md text-center transition duration-300 transform hover:scale-105 hover:shadow-xl border border-accent-green"
+          >
+            <img
+              src="Capture.PNG"
+              alt="Adam Ali Photo"
+              class="rounded-full w-24 h-24 mx-auto mb-4 object-cover border-2 border-accent-yellow"
+            />
+            <h3
+              class="text-2xl font-semibold text-accent-yellow mb-1"
+              data-lang-key="leader3_name"
+            >
+              Adam Ali
+            </h3>
+            <p class="text-accent-green mb-2" data-lang-key="leader3_role">
+              Administrator
+            </p>
+            <p class="text-text-primary text-sm" data-lang-key="leader3_bio">
+              As the backbone of the centre's operations, Adam Ali ensures
+              everything runs smoothly, managing day-to-day activities with
+              efficiency and a strong sense of service to the community.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="media-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="media_title"
+        >
+          Media & Live Streaming
+        </h2>
+        <p
+          class="text-text-secondary text-lg leading-relaxed mb-6"
+          data-lang-key="media_intro"
+        >
+          Watch our live sermons and lectures, or listen to previous recordings.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3
+              class="text-2xl font-semibold text-text-primary mb-3"
+              data-lang-key="live_stream_title"
+            >
+              Live Stream (YouTube)
+            </h3>
+            <div
+              class="relative overflow-hidden rounded-lg shadow-lg"
+              style="padding-top: 56.25%"
+            >
+              <iframe
+                src="https://www.youtube.com/embed/9l1i6kN8FLA?autoplay=0&controls=1&modestbranding=1&rel=0"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="absolute top-0 left-0 w-full h-full rounded-lg"
+                title="YouTube Live Stream"
+              ></iframe>
+            </div>
+            <p
+              class="text-text-secondary text-sm mt-2"
+              data-lang-key="live_stream_note"
+            >
+              Live streams are active during Jumu'ah prayers and special events.
+              Check our YouTube channel for the latest streams.
+            </p>
+          </div>
+          <div>
+            <h3
+              class="text-2xl font-semibold text-text-primary mb-3"
+              data-lang-key="audio_recordings_title"
+            >
+              Audio Recordings (Quran Recitations)
+            </h3>
+            <div class="space-y-4">
+              <div
+                class="bg-dark-bg p-3 rounded-lg flex items-center space-x-3"
+              >
+                <audio controls class="w-full">
+                  <source
+                    src="https://server6.mp3quran.net/minsh/001.mp3"
+                    type="audio/mpeg"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+                <p class="text-text-secondary text-sm">
+                  Surah Al-Fatiha (Mishary Alafasy)
+                </p>
+              </div>
+              <div
+                class="bg-dark-bg p-3 rounded-lg flex items-center space-x-3"
+              >
+                <audio controls class="w-full">
+                  <source
+                    src="https://server6.mp3quran.net/minsh/112.mp3"
+                    type="audio/mpeg"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+                <p class="text-text-secondary text-sm">
+                  Surah Al-Ikhlas (Mishary Alafasy)
+                </p>
+              </div>
+              <div
+                class="bg-dark-bg p-3 rounded-lg flex items-center space-x-3"
+              >
+                <audio controls class="w-full">
+                  <source
+                    src="https://server6.mp3quran.net/minsh/114.mp3"
+                    type="audio/mpeg"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+                <p class="text-text-secondary text-sm">
+                  Surah An-Nas (Mishary Alafasy)
+                </p>
+              </div>
+            </div>
+            <p
+              class="text-text-secondary text-sm mt-2"
+              data-lang-key="audio_recordings_note"
+            >
+              Listen to beautiful Quranic recitations and more recordings in our
+              archives.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="faq-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="faq_title"
+        >
+          Frequently Asked Questions (FAQ)
+        </h2>
+        <div class="space-y-4">
+          <details
+            class="group bg-dark-bg p-4 rounded-lg shadow-md cursor-pointer"
+          >
+            <summary
+              class="flex justify-between items-center font-semibold text-text-primary text-lg"
+              data-lang-key="faq_q1"
+            >
+              What are the operating hours of the Centre?
+              <span
+                class="transform transition-transform duration-300 group-open:rotate-180"
+                >▼</span
+              >
+            </summary>
+            <p class="text-text-secondary mt-2" data-lang-key="faq_a1">
+              The mosque is open for all daily prayers. The school and community
+              centre have specific operating hours which can be found on their
+              respective sections or by contacting us directly.
+            </p>
+          </details>
+          <details
+            class="group bg-dark-bg p-4 rounded-lg shadow-md cursor-pointer"
+          >
+            <summary
+              class="flex justify-between items-center font-semibold text-text-primary text-lg"
+              data-lang-key="faq_q2"
+            >
+              Do you offer classes for new Muslims?
+              <span
+                class="transform transition-transform duration-300 group-open:rotate-180"
+                >▼</span
+              >
+            </summary>
+            <p class="text-text-secondary mt-2" data-lang-key="faq_a2">
+              Yes, we offer introductory classes for new Muslims covering the
+              basics of Islam, prayer, and Quranic recitation. Please contact
+              the office for more details.
+            </p>
+          </details>
+          <details
+            class="group bg-dark-bg p-4 rounded-lg shadow-md cursor-pointer"
+          >
+            <summary
+              class="flex justify-between items-center font-semibold text-text-primary text-lg"
+              data-lang-key="faq_q3"
+            >
+              How can I donate to the Centre?
+              <span
+                class="transform transition-transform duration-300 group-open:rotate-180"
+                >▼</span
+              >
+            </summary>
+            <p class="text-text-secondary mt-2" data-lang-key="faq_a3">
+              You can donate online through our "Donate Now" button, or visit
+              the Centre directly. Your contributions are highly appreciated and
+              go towards maintaining our facilities and programs.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section
+        id="contact-section"
+        class="bg-card-bg p-8 rounded-2xl shadow-lg mb-8 transition duration-300 card-hover-effect bg-opacity-80 frosted-glass animate-on-scroll"
+      >
+        <h2
+          class="text-4xl font-extrabold text-accent-yellow mb-4"
+          data-lang-key="contact_title"
+        >
+          Contact Us
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3
+              class="text-2xl font-semibold text-text-primary mb-2"
+              data-lang-key="get_in_touch_title"
+            >
+              Get in Touch
+            </h3>
+            <p class="text-text-secondary text-lg" data-lang-key="centre_name">
+              Kabarnet Jamia Islamic Centre
+            </p>
+            <p class="text-text-secondary text-lg mt-4">
+              <span class="font-semibold" data-lang-key="mobile_label"
+                >Mobile:</span
+              >
+              <a
+                href="tel:+254746962075"
+                class="text-accent-yellow hover:underline"
+                >0746 962075</a
+              >
+            </p>
+            <p class="text-text-secondary text-lg">
+              <span class="font-semibold" data-lang-key="email_label"
+                >Email:</span
+              >
+              <a
+                href="mailto:kabarnet.islamiccenter@gmail.com"
+                class="text-accent-yellow hover:underline"
+                >kabarnet.islamiccenter@gmail.com</a
+              >
+            </p>
+            <p class="text-text-secondary text-lg mt-4">
+              <span class="font-semibold" data-lang-key="twitter_label"
+                >X (Twitter):</span
+              >
+              <a
+                href="https://twitter.com/Kabarnet_Jamia"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent-yellow hover:underline"
+                >@Kabarnet_Jamia</a
+              >
+            </p>
+          </div>
+          <div>
+            <h3
+              class="text-2xl font-semibold text-text-primary mb-2"
+              data-lang-key="send_message_title"
+            >
+              Send Us a Message
+            </h3>
+            <form id="contact-form" action="#" method="POST" class="space-y-4">
+              <div>
+                <label
+                  for="name"
+                  class="block text-text-secondary text-sm font-bold mb-2"
+                  data-lang-key="form_name_label"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-text-primary leading-tight focus:outline-none focus:shadow-outline bg-gray-200 frosted-glass"
+                  placeholder="Your Name"
+                  required
+                  data-lang-key="form_name_placeholder"
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-text-secondary text-sm font-bold mb-2"
+                  data-lang-key="form_email_label"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-text-primary leading-tight focus:outline-none focus:shadow-outline bg-gray-200 frosted-glass"
+                  placeholder="your@example.com"
+                  required
+                  data-lang-key="form_email_placeholder"
+                />
+              </div>
+              <div>
+                <label
+                  for="subject"
+                  class="block text-text-secondary text-sm font-bold mb-2"
+                  data-lang-key="form_subject_label"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-text-primary leading-tight focus:outline-none focus:shadow-outline bg-gray-200 frosted-glass"
+                  placeholder="Subject of your message"
+                  required
+                  data-lang-key="form_subject_placeholder"
+                />
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-text-secondary text-sm font-bold mb-2"
+                  data-lang-key="form_message_label"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-text-primary leading-tight focus:outline-none focus:shadow-outline bg-gray-200 frosted-glass"
+                  placeholder="Your message..."
+                  required
+                  data-lang-key="form_message_placeholder"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="bg-accent-green hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 transform hover:scale-105"
+                data-lang-key="send_message_button"
+              >
+                Send Message
+              </button>
+            </form>
+            <p class="text-gray-400 text-sm mt-4" data-lang-key="form_note">
+              Note: This form is for demonstration. For a live website, you'll
+              need server-side code to process messages.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h3
+            class="text-2xl font-semibold text-text-primary mb-2"
+            data-lang-key="map_title"
+          >
+            Find Us on the Map
+          </h3>
+          <div
+            class="relative overflow-hidden rounded-lg shadow-lg"
+            style="padding-top: 56.25%"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.336639016142!2d35.7397750731057!3d0.6333333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178121650b2b8045%3A0x89e8f6e2b2c8a1e!2sKabarnet!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="absolute top-0 left-0 w-full h-full rounded-lg"
+            ></iframe>
+          </div>
+          <p class="text-gray-400 text-sm mt-2" data-lang-key="map_note">
+            Exact location of Kabarnet Jamia Islamic Centre within Kabarnet
+            Town.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="bg-header-footer-bg text-text-primary p-4 mt-8 shadow-inner rounded-t-xl bg-opacity-90 frosted-glass"
+    >
+      <div class="container mx-auto text-center">
+        <p class="text-sm rounded-md" data-lang-key="copyright">
+          © 2025 Kabarnet Jamia Islamic Centre. All rights reserved.
+        </p>
+        <p class="text-xs mt-2" data-lang-key="location">
+          Located in Kabarnet, Baringo County, Kenya
+        </p>
+        <button
+          id="subscribe-notifications"
+          class="mt-4 bg-accent-yellow hover:bg-yellow-600 text-dark-bg font-bold py-2 px-4 rounded-full shadow-md transition duration-300 transform hover:scale-105 text-sm"
+          data-lang-key="subscribe_notifications"
+        >
+          Subscribe to Notifications
+        </button>
+      </div>
+    </footer>
+
+    <div id="donation-modal" class="modal flex">
+      <div class="modal-content">
+        <span class="close-button" id="close-donation-modal">×</span>
+        <h3
+          class="text-3xl font-bold text-accent-yellow mb-4"
+          data-lang-key="donate_modal_title"
+        >
+          Support Kabarnet Jamia Islamic Centre
+        </h3>
+        <p class="mb-4" data-lang-key="donate_modal_text">
+          Your generous contributions are vital for the continuous operation and
+          expansion of our mosque, school, and community programs. May Allah
+          reward you abundantly.
+        </p>
+        <div class="space-y-3">
+          <button
+            class="w-full bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300"
+            data-lang-key="donate_mpesa"
+          >
+            Donate via M-Pesa
+          </button>
+          <button
+            class="w-full bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-300 transition duration-300"
+            data-lang-key="donate_paypal"
+          >
+            Donate via PayPal
+          </button>
+          <button
+            class="w-full bg-accent-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-300 transition duration-300"
+            data-lang-key="donate_bank"
+          >
+            Bank Transfer Details
+          </button>
+        </div>
+        <p class="text-gray-400 text-sm mt-4" data-lang-key="donate_modal_note">
+          Note: Actual payment integration requires secure backend setup.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Language content dictionary
+      const translations = {
+        en: {
+          welcome_title: "Welcome to Kabarnet Jamia Islamic Centre!",
+          welcome_text:
+            "We are a vibrant community dedicated to serving the spiritual, social, and educational needs of Muslims in Kabarnet. Join us for prayers, community events, and learning opportunities. Our centre encompasses a Masjid, a School, and a Community Centre, all working together to foster a strong and knowledgeable Muslim community.",
+          discover_more: "Discover More",
+          about_title: "About Kabarnet Jamia Islamic Centre",
+          about_intro:
+            "Kabarnet Jamia Islamic Centre was established with the vision of becoming a beacon of Islamic knowledge and community service in Kabarnet, Baringo County, Kenya. Our journey began with a commitment to provide a nurturing environment for spiritual growth, education, and social cohesion. Muslim community. It is comprised of a beautiful Masjid for daily prayers and congregational gatherings, a dedicated School offering Islamic and secular education, and a Community Centre that hosts various social and welfare programs. We invite you to be a part of our growing family.",
+          mission_title: "Our Mission",
+          mission_text:
+            "To uphold the values of Islam, promote peace, understanding, and compassion, and empower individuals through comprehensive religious education.",
+          vision_title: "Our Vision",
+          vision_text:
+            "To be a leading Islamic institution fostering a strong, knowledgeable, and compassionate Muslim community that contributes positively to society.",
+          values_title: "Our Values",
+          values_text:
+            "Faith, Knowledge, Community, Compassion, Integrity, and Service to Humanity.",
+          prayer_times_title: "Daily Prayer Times",
+          prayer_times_intro:
+            "Stay updated with our daily prayer schedules. We welcome everyone to join our congregational prayers.",
+          events_title: "Upcoming Events",
+          no_events:
+            "No upcoming events scheduled at the moment. Please check back soon!",
+          view_all_events: "View All Events",
+          support_title: "Support Our Centre",
+          support_text:
+            "Your generous contributions help us maintain our facilities and expand our programs. Support the growth of our community.",
+          donate_now: "Donate Now",
+          school_title: "Our School",
+          school_text:
+            "The Kabarnet Jamia Islamic Centre School provides quality Islamic and secular education to children and adults. Our curriculum is designed to nurture well-rounded individuals who are strong in faith and equipped with modern knowledge. We offer classes from early childhood to advanced Islamic studies.",
+          learn_programs: "Learn About Our Programs",
+          community_title: "Our Community Centre",
+          community_text:
+            "The Community Centre is the heart of our social activities, providing a space for unity, support, and welfare. We organize various programs including youth activities, women's circles, interfaith dialogues, and social support initiatives. Our aim is to build a strong, compassionate, and interconnected community.",
+          explore_initiatives: "Explore Community Initiatives",
+          gallery_title: "Photo Gallery",
+          gallery_text:
+            "Explore moments from our mosque, school, and community events.",
+          imam_message_title: "Imam's Message",
+          imam_message_text: `
+                    <p class="mb-4">Assalamu Alaikum wa Rahmatullahi wa Barakatuh,</p>
+                    <p class="mb-4">Dear beloved community members,</p>
+                    <p class="mb-4">It is with immense gratitude to Allah (SWT) that I address you from the heart of Kabarnet Jamia Islamic Centre. Our mosque stands as a beacon of guidance, a hub for learning, and a sanctuary for spiritual reflection. In these challenging times, it is more important than ever that we strengthen our bonds of brotherhood and sisterhood, uphold the teachings of our beautiful deen, and strive to embody the noble character of Prophet Muhammad (peace be upon him).</p>
+                    <p class="mb-4">We are committed to providing a nurturing environment for all ages, fostering a deep understanding of the Quran and Sunnah, and actively contributing to the well-being of our wider society. May Allah bless our efforts and unite our hearts in His obedience.</p>
+                    <p class="font-semibold mt-6">Wassalam,</p>
+                    <p class="font-semibold">Imam Said Muhodhari</p>
+                `,
+          leadership_title: "Our Leadership",
+          leadership_intro:
+            "Meet the dedicated individuals who guide and serve the Kabarnet Jamia Islamic Centre community.",
+          leader1_name: "Dr. Mustafa Ali",
+          leader1_role: "Chairman, Management Committee",
+          leader1_bio:
+            "A dedicated leader with a deep commitment to community service and mosque administration. Dr. Mustafa has been pivotal in steering the Kabarnet Jamia Islamic Centre toward growth and spiritual excellence.",
+          leader2_name: "Imam Said Muhodhari",
+          leader2_role: "Imam",
+          leader2_bio:
+            "An inspiring spiritual leader, Imam Said brings a wealth of knowledge and compassion to the community. His guidance fosters deep understanding of Islamic teachings and unity within the mosque.",
+          leader3_name: "Adam Ali",
+          leader3_role: "Administrator",
+          leader3_bio:
+            "As the backbone of the centre's operations, Adam Ali ensures everything runs smoothly, managing day-to-day activities with efficiency and a strong sense of service to the community.",
+          media_title: "Media & Live Streaming",
+          media_intro:
+            "Watch our live sermons and lectures, or listen to previous recordings.",
+          live_stream_title: "Live Stream (YouTube)",
+          live_stream_note:
+            "Live streams are active during Jumu'ah prayers and special events. Check our YouTube channel for the latest streams.",
+          audio_recordings_title: "Audio Recordings (Quran Recitations)",
+          audio_recordings_note:
+            "Listen to beautiful Quranic recitations and more recordings in our archives.",
+          faq_title: "Frequently Asked Questions (FAQ)",
+          faq_q1: "What are the operating hours of the Centre?",
+          faq_a1:
+            "The mosque is open for all daily prayers. The school and community centre have specific operating hours which can be found on their respective sections or by contacting us directly.",
+          faq_q2: "Do you offer classes for new Muslims?",
+          faq_a2:
+            "Yes, we offer introductory classes for new Muslims covering the basics of Islam, prayer, and Quranic recitation. Please contact the office for more details.",
+          faq_q3: "How can I donate to the Centre?",
+          faq_a3:
+            'You can donate online through our "Donate Now" button, or visit the Centre directly. Your contributions are highly appreciated and go towards maintaining our facilities and programs.',
+          contact_title: "Contact Us",
+          get_in_touch_title: "Get in Touch",
+          centre_name: "Kabarnet Jamia Islamic Centre",
+          mobile_label: "Mobile:",
+          email_label: "Email:",
+          twitter_label: "X (Twitter):",
+          send_message_title: "Send Us a Message",
+          form_name_label: "Name",
+          form_name_placeholder: "Your Name",
+          form_email_label: "Email",
+          form_email_placeholder: "your@example.com",
+          form_subject_label: "Subject",
+          form_subject_placeholder: "Subject of your message",
+          form_message_label: "Message",
+          form_message_placeholder: "Your message...",
+          send_message_button: "Send Message",
+          form_note:
+            "Note: This form is for demonstration. For a live website, you'll need server-side code to process messages.",
+          map_title: "Find Us on the Map",
+          map_note:
+            "Exact location of Kabarnet Jamia Islamic Centre within Kabarnet Town.",
+          copyright:
+            "© 2025 Kabarnet Jamia Islamic Centre. All rights reserved.",
+          location: "Located in Kabarnet, Baringo County, Kenya",
+          subscribe_notifications: "Subscribe to Notifications",
+          donate_modal_title: "Support Kabarnet Jamia Islamic Centre",
+          donate_modal_text:
+            "Your generous contributions are vital for the continuous operation and expansion of our mosque, school, and community programs. May Allah reward you abundantly.",
+          donate_mpesa: "Donate via M-Pesa",
+          donate_paypal: "Donate via PayPal",
+          donate_bank: "Bank Transfer Details",
+          donate_modal_note:
+            "Note: Actual payment integration requires secure backend setup.",
+          more_dropdown_title: "More", // Added for consistency
+          dark_mode_text: "Dark Mode", // For theme toggle
+          light_mode_text: "Light Mode", // For theme toggle
+        },
+        sw: {
+          welcome_title: "Karibu Kituo cha Kiislamu cha Kabarnet Jamia!",
+          welcome_text:
+            "Sisi ni jamii yenye nguvu inayojitolea kuhudumia mahitaji ya kiroho, kijamii, na kielimu ya Waislamu huko Kabarnet. Jiunge nasi kwa sala, matukio ya jamii, na fursa za kujifunza. Kituo chetu kinajumuisha Msikiti, Shule, na Kituo cha Jamii, vyote vikifanya kazi pamoja kukuza jamii imara na yenye ujuzi ya Kiislamu.",
+          discover_more: "Gundua Zaidi",
+          about_title: "Kuhusu Kituo cha Kiislamu cha Kabarnet Jamia",
+          about_intro:
+            "Kituo cha Kiislamu cha Kabarnet Jamia kilianzishwa kwa lengo la kuwa nuru ya elimu ya Kiislamu na huduma za jamii huko Kabarnet, Kaunti ya Baringo, Kenya. Safari yetu ilianza na ahadi ya kutoa mazingira ya kulea ukuaji wa kiroho, elimu, na mshikamano wa kijamii.",
+          mission_title: "Dira Yetu",
+          mission_text:
+            "Kudumisha maadili ya Uislamu, kukuza amani, uelewa, na huruma, na kuwawezesha watu binafsi kupitia elimu kamili ya kidini.",
+          vision_title: "Maono Yetu",
+          vision_text:
+            "Kuwa taasisi inayoongoza ya Kiislamu inayokuza jamii imara, yenye ujuzi, na yenye huruma ya Kiislamu inayochangia vyema katika jamii.",
+          values_title: "Maadili Yetu",
+          values_text:
+            "Imani, Ujuzi, Jamii, Huruma, Uadilifu, na Huduma kwa Binadamu.",
+          prayer_times_title: "Nyakati za Sala za Kila Siku",
+          prayer_times_intro:
+            "Endelea kupata taarifa za ratiba zetu za sala za kila siku. Tunakaribisha kila mtu kujiunga na sala zetu za jamaa.",
+          events_title: "Matukio Yanayokuja",
+          no_events:
+            "Hakuna matukio yaliyopangwa kwa sasa. Tafadhali angalia tena hivi karibuni!",
+          view_all_events: "Angalia Matukio Yote",
+          support_title: "Saidia Kituo Chetu",
+          support_text:
+            "Michango yako mikubwa inatusaidia kudumisha vituo vyetu na kupanua programu zetu. Saidia ukuaji wa jamii yetu.",
+          donate_now: "Changia Sasa",
+          school_title: "Shule Yetu",
+          school_text:
+            "Shule ya Kituo cha Kiislamu cha Kabarnet Jamia inatoa elimu bora ya Kiislamu na ya kidunia kwa watoto na watu wazima. Mtaala wetu umeundwa kulea watu binafsi walioendelea vizuri ambao ni imara katika imani na wenye ujuzi wa kisasa. Tunatoa madarasa kutoka utoto wa mapema hadi masomo ya juu ya Kiislamu.",
+          learn_programs: "Jifunze Kuhusu Programu Zetu",
+          community_title: "Kituo Chetu cha Jamii",
+          community_text:
+            "Kituo cha Jamii ni moyo wa shughuli zetu za kijamii, kinatoa nafasi ya umoja, msaada, na ustawi. Tunapanga programu mbalimbali ikiwemo shughuli za vijana, miduara ya wanawake, mijadala ya dini mbalimbali, na mipango ya msaada wa kijamii. Lengo letu ni kujenga jamii imara, yenye huruma, na iliyounganishwa.",
+          explore_initiatives: "Gundua Mipango ya Jamii",
+          gallery_title: "Matunzio ya Picha",
+          gallery_text:
+            "Gundua matukio kutoka msikiti wetu, shule, na matukio ya jamii.",
+          imam_message_title: "Ujumbe wa Imamu",
+          imam_message_text: `
+                    <p class="mb-4">Assalamu Alaikum wa Rahmatullahi wa Barakatuh,</p>
+                    <p class="mb-4">Wapendwa wanajamii,</p>
+                    <p class="mb-4">Ni kwa shukrani kubwa kwa Allah (SWT) ninawasalimu kutoka moyoni mwa Kituo cha Kiislamu cha Kabarnet Jamia. Msikiti wetu umesimama kama nuru ya uongozi, kituo cha kujifunza, na patakatifu pa kutafakari kiroho. Katika nyakati hizi ngumu, ni muhimu zaidi kuliko hapo awali tuimarishe vifungo vyetu vya udugu na udada, tushikilie mafundisho ya dini yetu nzuri, na tujitahidi kuonyesha tabia tukufu ya Mtume Muhammad (rehema na amani ziwe juu yake).</p>
+                    <p class="mb-4">Tumejitolea kutoa mazingira ya kulea kwa kila kizazi, kukuza uelewa wa kina wa Quran na Sunnah, na kuchangia kikamilifu katika ustawi wa jamii yetu pana. Allah abariki juhudi zetu ويوحد قلوبنا في طاعته.</p>
+                    <p class="font-semibold mt-6">Wassalam,</p>
+                    <p class="font-semibold">Imamu Said Muhodhari</p>
+                `,
+          leadership_title: "Uongozi Wetu",
+          leadership_intro:
+            "Kutana na watu waliojitolea wanaoongoza na kuhudumia jamii ya Kituo cha Kiislamu cha Kabarnet Jamia.",
+          leader1_name: "Dkt. Mustafa Ali",
+          leader1_role: "Mwenyekiti, Kamati ya Usimamizi",
+          leader1_bio:
+            "Kiongozi wa jamii aliyejitolea na uzoefu wa miaka mingi katika usimamizi wa msikiti na maendeleo ya jamii.",
+          leader2_name: "Imamu Said Muhodhari",
+          leader2_role: "Imamu",
+          leader2_bio:
+            "Kiongozi wa kiroho anayehimiza, Imamu Said analeta ujuzi mwingi na huruma kwa jamii. Uongozi wake unakuza uelewa wa kina wa mafundisho ya Kiislamu na umoja ndani ya msikiti.",
+          leader3_name: "Adam Ali",
+          leader3_role: "Msimamizi",
+          leader3_bio:
+            "Kama uti wa mgongo wa shughuli za kituo, Adam Ali anahakikisha kila kitu kinaenda vizuri, akisimamia shughuli za kila siku kwa ufanisi na hisia kali ya huduma kwa jamii.",
+          media_title: "Vyombo vya Habari na Matangazo ya Moja kwa Moja",
+          media_intro:
+            "Tazama mahubiri na mihadhara yetu ya moja kwa moja, au sikiliza rekodi za awali.",
+          live_stream_title: "Tangazo la Moja kwa Moja (YouTube)",
+          live_stream_note:
+            "Matangazo ya moja kwa moja huwashwa wakati wa sala za Ijumaa na matukio maalum. Angalia chaneli yetu ya YouTube kwa matangazo ya hivi punde.",
+          audio_recordings_title: "Rekodi za Sauti (Usomaji wa Kurani)",
+          audio_recordings_note:
+            "Sikiliza usomaji mzuri wa Kurani na rekodi zaidi katika kumbukumbu zetu.",
+          faq_title: "Maswali Yanayoulizwa Mara kwa Mara (FAQ)",
+          faq_q1: "Je, saa za kazi za Kituo ni zipi?",
+          faq_a1:
+            "Msikiti hufunguliwa kwa sala zote za kila siku. Shule na kituo cha jamii vina saa maalum za kazi ambazo zinaweza kupatikana kwenye sehemu zao husika au kwa kuwasiliana nasi moja kwa moja.",
+          faq_q2: "Do you offer classes for new Muslims?",
+          faq_a2:
+            "Ndio, tunatoa madarasa ya utangulizi kwa Waislamu wapya yanayofunika misingi ya Uislamu, sala, na usomaji wa Quran. Tafadhali wasiliana na ofisi kwa maelezo zaidi.",
+          faq_q3: "How can I donate to the Centre?",
+          faq_a3:
+            'Unaweza kuchangia mtandaoni kupitia kitufe chetu cha "Changia Sasa", au tembelea Kituo moja kwa moja. Michango yako inathaminiwa sana na inatumika kudumisha vituo vyetu na programu zetu.',
+          contact_title: "Wasiliana Nasi",
+          get_in_touch_title: "Wasiliana",
+          centre_name: "Kituo cha Kiislamu cha Kabarnet Jamia",
+          mobile_label: "Simu:",
+          email_label: "Barua pepe:",
+          twitter_label: "X (Twitter):",
+          send_message_title: "Tuma Ujumbe Kwetu",
+          form_name_label: "Jina",
+          form_name_placeholder: "Jina Lako",
+          form_email_label: "Barua pepe",
+          form_email_placeholder: "yako@mfano.com",
+          form_subject_label: "Mada",
+          form_subject_placeholder: "Mada ya ujumbe wako",
+          form_message_label: "Ujumbe",
+          form_message_placeholder: "Ujumbe wako...",
+          send_message_button: "Tuma Ujumbe",
+          form_note:
+            "Kumbuka: Fomu hii ni kwa ajili ya onyesho. Kwa tovuti hai, utahitaji msimbo wa upande wa seva kusindika ujumbe.",
+          map_title: "Tutafute Kwenye Ramani",
+          map_note:
+            "Mahali halisi pa Kituo cha Kiislamu cha Kabarnet Jamia ndani ya Mji wa Kabarnet.",
+          copyright:
+            "© 2025 Kituo cha Kiislamu cha Kabarnet Jamia. Haki zote zimehifadhiwa.",
+          location: "Iko Kabarnet, Kaunti ya Baringo, Kenya",
+          subscribe_notifications: "Jiandikishe kwa Arifa",
+          donate_modal_title: "Saidia Kituo cha Kiislamu cha Kabarnet Jamia",
+          donate_modal_text:
+            "Michango yako mikubwa ni muhimu kwa uendeshaji na upanuzi endelevu wa msikiti wetu, shule, na programu za jamii. Allah akulipe kwa wingi.",
+          donate_mpesa: "Changia kupitia M-Pesa",
+          donate_paypal: "Changia kupitia PayPal",
+          donate_bank: "Maelezo ya Uhamisho wa Benki",
+          donate_modal_note:
+            "Kumbuka: Ujumuishaji halisi wa malipo unahitaji usanidi salama wa upande wa seva.",
+          more_dropdown_title: "Zaidi",
+          dark_mode_text: "Hali ya Giza",
+          light_mode_text: "Hali Nyepesi",
+        },
+        ar: {
+          welcome_title: "أهلاً بكم في مركز كابارنيت الجامع الإسلامي!",
+          welcome_text:
+            "نحن مجتمع نابض بالحياة مكرس لخدمة الاحتياجات الروحية والاجتماعية والتعليمية للمسلمين في كابارنيت. انضموا إلينا للصلاة وفعاليات المجتمع وفرص التعلم. يضم مركزنا مسجداً ومدرسة ومركزاً مجتمعياً، تعمل جميعها معاً لتعزيز مجتمع مسلم قوي ومطلع.",
+          discover_more: "اكتشف المزيد",
+          about_title: "عن مركز كابارنيت الجامع الإسلامي",
+          about_intro:
+            "تأسس مركز كابارنيت الجامع الإسلامي برؤية أن يصبح منارة للمعرفة الإسلامية والخدمة المجتمعية في كابارنيت، مقاطعة بارينغو، كينيا. بدأت رحلتنا بالتزام بتوفير بيئة حاضنة للنمو الروحي والتعليم والتماسك الاجتماعي.",
+          mission_title: "رسالتنا",
+          mission_text:
+            "التمسك بقيم الإسلام، وتعزيز السلام والتفاهم والرحمة، وتمكين الأفراد من خلال التعليم الديني الشامل.",
+          vision_title: "رؤيتنا",
+          vision_text:
+            "أن نكون مؤسسة إسلامية رائدة تعزز مجتمعًا مسلمًا قويًا ومطلعًا ورحيمًا يساهم بشكل إيجابي في المجتمع.",
+          values_title: "قيمنا",
+          values_text:
+            "الإيمان، المعرفة، المجتمع، الرحمة، النزاهة، وخدمة الإنسانية.",
+          prayer_times_title: "مواقيت الصلاة اليومية",
+          prayer_times_intro:
+            "ابقوا على اطلاع دائم بجداول صلاتنا اليومية. نرحب بالجميع للانضمام إلى صلوات الجماعة.",
+          events_title: "الفعاليات القادمة",
+          no_events:
+            "لا توجد فعاليات مجدولة حاليًا. يرجى التحقق مرة أخرى قريبا!",
+          view_all_events: "عرض جميع الفعاليات",
+          support_title: "ادعموا مركزنا",
+          support_text:
+            "تساعدنا مساهماتكم السخية في الحفاظ على مرافقنا وتوسيع برامجنا. ادعموا نمو مجتمعنا.",
+          donate_now: "تبرع الآن",
+          school_title: "مدرستنا",
+          school_text:
+            "توفر مدرسة مركز كابارنيت الجامع الإسلامي تعليمًا إسلاميًا وعلمانيًا عالي الجودة للأطفال والكبار. تم تصميم منهجنا لتربية أفراد متكاملين أقوياء في الإيمان ومجهزين بالمعرفة الحديثة. نقدم فصولًا من مرحلة الطفولة المبكرة إلى الدراسات الإسلامية المتقدمة.",
+          learn_programs: "تعرف على برامجنا",
+          community_title: "مركزنا المجتمعي",
+          community_text:
+            "المركز المجتمعي هو قلب أنشطتنا الاجتماعية، ويوفر مساحة للوحدة والدعم والرعاية. ننظم برامج متنوعة تشمل أنشطة الشباب، ودوائر النساء، والحوارات بين الأديان، ومبادرات الدعم الاجتماعي. هدفنا هو بناء مجتمع قوي ورحيم ومترابط.",
+          explore_initiatives: "استكشف المبادرات المجتمعية",
+          gallery_title: "معرض الصور",
+          gallery_text: "استكشف لحظات من مسجدنا ومدرستنا وفعالياتنا المجتمعية.",
+          imam_message_title: "رسالة الإمام",
+          imam_message_text: `
+                    <p class="mb-4">السلام عليكم ورحمة الله وبركاته،</p>
+                    <p class="mb-4">أيها الأعزاء من أفراد المجتمع،</p>
+                    <p class="mb-4">ببالغ الامتنان لله (سبحانه وتعالى) أتوجه إليكم من قلب مركز كابارنيت الجامع الإسلامي. يقف مسجدنا منارة للهداية، ومركزًا للتعلم، وملاذًا للتأمل الروحي. في هذه الأوقات العصيبة، من الأهمية بمكان أن نقوي روابط الأخوة والأخوات، ونتمسك بتعاليم ديننا الجميل، ونسعى جاهدين لتجسيد الأخلاق النبيلة للنبي محمد (صلى الله عليه وسلم).</p>
+                    <p class="mb-4">نحن ملتزمون بتوفير بيئة حاضنة لجميع الأعمار، وتعزيز فهم عميق للقرآن والسنة، والمساهمة بنشاط في رفاهية مجتمعنا الأوسع. بارك الله في جهودنا ووحد قلوبنا في طاعته.</p>
+                    <p class="font-semibold mt-6">والسلام،</p>
+                    <p class="font-semibold">الإمام سعيد محوذهري</p>
+                `,
+          leadership_title: "قيادتنا",
+          leadership_intro:
+            "تعرفوا على الأفراد المتفانين الذين يوجهون ويخدمون مجتمع مركز كابارنيت الجامع الإسلامي.",
+          leader1_name: "الدكتور مصطفى علي",
+          leader1_role: "رئيس لجنة الإدارة",
+          leader1_bio:
+            "قائد متفانٍ ذو التزام عميق بخدمة المجتمع وإدارة المساجد. لقد كان الدكتور مصطفى محوريًا في توجيه مركز كابارنيت الجامع الإسلامي نحو النمو والتميز الروحي.",
+          leader2_name: "الإمام سعيد محوذهري",
+          leader2_role: "إمام",
+          leader2_bio:
+            "قائد روحي ملهم، يجلب الإمام سعيد ثروة من المعرفة والرحمة للمجتمع. توجيهاته تعزز الفهم العميق لتعاليم الإسلام والوحدة داخل المسجد.",
+          leader3_name: "آدم علي",
+          leader3_role: "مسؤول",
+          leader3_bio:
+            "بصفته العمود الفقري لعمليات المركز، يضمن آدم علي سير كل شيء بسلاسة، ويدير الأنشطة اليومية بكفاءة وشعور قوي بخدمة المجتمع.",
+          media_title: "الوسائط والبث المباشر",
+          media_intro:
+            "شاهدوا خطبنا ومحاضراتنا المباشرة، أو استمعوا إلى التسجيلات السابقة.",
+          live_stream_title: "البث المباشر (يوتيوب)",
+          live_stream_note:
+            "البث المباشر يكون نشطًا أثناء صلوات الجمعة والمناسبات الخاصة. تحقق من قناتنا على اليوتيوب للحصول على أحدث البثوث.",
+          audio_recordings_title: "التسجيلات الصوتية (تلاوات قرآنية)",
+          audio_recordings_note:
+            "استمع إلى تلاوات قرآنية جميلة والمزيد من التسجيلات في أرشيفنا.",
+          faq_title: "الأسئلة الشائعة",
+          faq_q1: "ما هي ساعات عمل المركز؟",
+          faq_a1:
+            "المسجد مفتوح لجميع الصلوات اليومية. وللمدرسة والمركز المجتمعي ساعات عمل محددة يمكن العثور عليها في أقسامهما الخاصة أو عن طريق الاتصال بنا مباشرة.",
+          faq_q2: "هل تقدمون دروسًا للمسلمين الجدد؟",
+          faq_a2:
+            "نعم، نقدم دروسًا تمهيدية للمسلمين الجدد تغطي أساسيات الإسلام والصلاة وتلاوة القرآن. يرجى الاتصال بالمكتب لمزيد من التفاصيل.",
+          faq_q3: "كيف يمكنني التبرع للمركز؟",
+          faq_a3:
+            'يمكنك التبرع عبر الإنترنت من خلال زر "تبرع الآن"، أو زيارة المركز مباشرة. مساهماتكم محل تقدير كبير وتذهب نحو صيانة مرافقنا وبرامجنا.',
+          contact_title: "اتصل بنا",
+          get_in_touch_title: "تواصلوا معنا",
+          centre_name: "مركز كابارنيت الجامع الإسلامي",
+          mobile_label: "الجوال:",
+          email_label: "البريد الإلكتروني:",
+          twitter_label: "تويتر (X):",
+          send_message_title: "أرسل لنا رسالة",
+          form_name_label: "الاسم",
+          form_name_placeholder: "اسمك",
+          form_email_label: "البريد الإلكتروني",
+          form_email_placeholder: "your@example.com",
+          form_subject_label: "الموضوع",
+          form_subject_placeholder: "موضوع رسالتك",
+          form_message_label: "الرسالة",
+          form_message_placeholder: "رسالتك...",
+          send_message_button: "أرسل الرسالة",
+          form_note:
+            "ملاحظة: هذا النموذج للعرض التوضيحي. لموقع ويب مباشر، ستحتاج إلى كود من جانب الخادم لمعالجة الرسائل.",
+          map_title: "اعثر علينا على الخريطة",
+          map_note:
+            "الموقع الدقيق لمركز كابارنيت الجامع الإسلامي داخل مدينة كابارنيت.",
+          copyright:
+            "© 2025 مركز كابارنيت الجامع الإسلامي. جميع الحقوق محفوظة.",
+          location: "يقع في كابارنيت، مقاطعة بارينغو، كينيا",
+          subscribe_notifications: "اشترك في الإشعارات",
+          donate_modal_title: "ادعموا مركز كابارنيت الجامع الإسلامي",
+          donate_modal_text:
+            "مساهماتكم السخية حيوية لاستمرار عمل وتوسع مسجدنا ومدرستنا وبرامجنا المجتمعية. جزاكم الله خيرًا.",
+          donate_mpesa: "تبرع عبر M-Pesa",
+          donate_paypal: "تبرع عبر PayPal",
+          donate_bank: "تفاصيل التحويل البنكي",
+          donate_modal_note:
+            "ملاحظة: يتطلب دمج الدفع الفعلي إعدادًا آمنًا من جانب الخادم.",
+          more_dropdown_title: "المزيد",
+          dark_mode_text: "الوضع المظلم",
+          light_mode_text: "الوضع الفاتح",
+        },
+      };
+
+      // Function to update content based on selected language
+      function updateContent(lang) {
+        document.querySelectorAll("[data-lang-key]").forEach((element) => {
+          const key = element.getAttribute("data-lang-key");
+          if (translations[lang] && translations[lang][key]) {
+            // For input placeholders, update the placeholder attribute
+            if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+              element.placeholder = translations[lang][key];
+            } else {
+              // For HTML content, use innerHTML to allow for rich text (like in imam_message_text)
+              element.innerHTML = translations[lang][key];
+            }
+          }
+        });
+        // Update document title
+        document.title = translations[lang].welcome_title.replace(
+          "Welcome to ",
+          ""
+        );
+        // Update theme toggle text
+        const themeToggleText = document.getElementById("theme-toggle-text");
+        if (themeToggleText) {
+          themeToggleText.textContent = document.body.classList.contains(
+            "light-theme"
+          )
+            ? translations[lang].dark_mode_text
+            : translations[lang].light_mode_text;
+        }
+      }
+
+      // Function to get and display the current date
+      function displayCurrentDate() {
+        const dateElement = document.getElementById("current-date");
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const today = new Date();
+        dateElement.textContent = `Date: ${today.toLocaleDateString(
+          "en-US",
+          options
+        )}`;
+      }
+
+      // Function to fetch and update real-time prayer times using AlAdhan API
+      async function fetchPrayerTimes() {
+        const city = "Kabarnet";
+        const country = "Kenya";
+        const method = 2; // Islamic Society of North America - a common calculation method
+        const apiUrl = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=${method}`;
+
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+
+          if (data.code === 200 && data.status === "OK") {
+            const timings = data.data.timings;
+            document.getElementById(
+              "fajr-time"
+            ).textContent = `Fajr: ${timings.Fajr}`;
+            document.getElementById(
+              "dhuhr-time"
+            ).textContent = `Dhuhr: ${timings.Dhuhr}`;
+            document.getElementById(
+              "asr-time"
+            ).textContent = `Asr: ${timings.Asr}`;
+            document.getElementById(
+              "maghrib-time"
+            ).textContent = `Maghrib: ${timings.Maghrib}`;
+            document.getElementById(
+              "isha-time"
+            ).textContent = `Isha: ${timings.Isha}`;
+          } else {
+            console.error(
+              "Error fetching prayer times:",
+              data.status,
+              data.data
+            );
+            document.getElementById(
+              "fajr-time"
+            ).textContent = `Fajr: N/A (Error)`;
+            document.getElementById(
+              "dhuhr-time"
+            ).textContent = `Dhuhr: N/A (Error)`;
+            document.getElementById(
+              "asr-time"
+            ).textContent = `Asr: N/A (Error)`;
+            document.getElementById(
+              "maghrib-time"
+            ).textContent = `Maghrib: N/A (Error)`;
+            document.getElementById(
+              "isha-time"
+            ).textContent = `Isha: N/A (Error)`;
+          }
+        } catch (error) {
+          console.error("Network error or API issue:", error);
+          document.getElementById(
+            "fajr-time"
+          ).textContent = `Fajr: Error loading`;
+          document.getElementById(
+            "dhuhr-time"
+          ).textContent = `Dhuhr: Error loading`;
+          document.getElementById(
+            "asr-time"
+          ).textContent = `Asr: Error loading`;
+          document.getElementById(
+            "maghrib-time"
+          ).textContent = `Maghrib: Error loading`;
+          document.getElementById(
+            "isha-time"
+          ).textContent = `Isha: Error loading`;
+        }
+      }
+
+      // Function to load and display events
+      function loadEvents() {
+        const eventsList = document.getElementById("events-list");
+        const events = [
+          {
+            title: "Youth Halaqa: Building Character",
+            date: "July 20, 2025",
+            time: "7:00 PM",
+            location: "Community Hall",
+          },
+          {
+            title: "Sisters' Quran Study Circle",
+            date: "July 25, 2025",
+            time: "10:00 AM",
+            location: "Sisters' Lounge",
+          },
+          {
+            title: "Eid al-Adha Community Celebration",
+            date: "August 1, 2025",
+            time: "After Fajr Prayer",
+            location: "Main Prayer Hall",
+          },
+        ];
+
+        if (events.length === 0) {
+          eventsList.innerHTML = `<p class="mb-2" data-lang-key="no_events">${
+            translations[document.getElementById("language-switcher").value]
+              .no_events
+          }</p>`;
+        } else {
+          eventsList.innerHTML = events
+            .map(
+              (event) => `
+                        <div class="mb-4 p-3 bg-dark-bg rounded-lg">
+                          <p class="font-semibold text-accent-yellow">${event.title}</p>
+                          <p class="text-sm">Date: ${event.date} | Time: ${event.time}</p>
+                          <p class="text-sm">Location: ${event.location}</p>
+                        </div>
+                    `
+            )
+            .join("");
+        }
+      }
+
+      // Donation Modal Logic
+      const donationModal = document.getElementById("donation-modal");
+      const donateButton = document.getElementById("donate-button");
+      const closeDonationModal = document.getElementById(
+        "close-donation-modal"
+      );
+
+      donateButton.onclick = function () {
+        donationModal.style.display = "flex"; // Use flex to center content
+      };
+
+      closeDonationModal.onclick = function () {
+        donationModal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == donationModal) {
+          donationModal.style.display = "none";
+        }
+      };
+
+      // Smooth scrolling for internal links
+      document
+        .querySelectorAll(".scroll-link, .scroll-button")
+        .forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            let targetId = this.getAttribute("href");
+            if (this.dataset.scrollTo) {
+              // For buttons with data-scroll-to attribute
+              targetId = "#" + this.dataset.scrollTo;
+            }
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+      // Contact Form Submission (placeholder)
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent default form submission
+          alert(
+            "Message Sent! (Note: This is a placeholder. Actual sending requires backend setup.)"
+          );
+          this.reset(); // Clear the form
+        });
+
+      // Push Notifications (Client-side placeholder)
+      document
+        .getElementById("subscribe-notifications")
+        .addEventListener("click", () => {
+          if ("serviceWorker" in navigator && "PushManager" in window) {
+            // This is where you would register your service worker and subscribe for push notifications.
+            // This requires a backend server to send notifications and manage subscriptions.
+            console.log(
+              "Push notifications are supported. Implement service worker registration and subscription here."
+            );
+            alert(
+              "Subscription initiated! (Requires backend setup for full functionality)"
+            );
+            // Example:
+            // navigator.serviceWorker.register('/service-worker.js')
+            // .then(registration => {
+            //     return registration.pushManager.subscribe({
+            //         userVisibleOnly: true,
+            //         applicationServerKey: 'YOUR_PUBLIC_VAPID_KEY_HERE'
+            //     });
+            // })
+            // .then(subscription => {
+            //     console.log('User subscribed:', subscription);
+            //     // Send subscription object to your server
+            // })
+            // .catch(error => console.error('Push subscription failed:', error));
+          } else {
+            alert("Push notifications are not supported by your browser.");
+          }
+        });
+
+      // Theme Toggle Logic
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      // Function to set the theme
+      function setTheme(theme) {
+        if (theme === "light") {
+          body.classList.add("light-theme");
+          localStorage.setItem("theme", "light");
+        } else {
+          body.classList.remove("light-theme");
+          localStorage.setItem("theme", "dark");
+        }
+        // After setting the theme, update the content to reflect the correct theme text
+        updateContent(document.getElementById("language-switcher").value);
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        if (document.body.classList.contains("light-theme")) {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
+      });
+
+      // On-scroll animation (Intersection Observer)
+      const animateOnScrollElements =
+        document.querySelectorAll(".animate-on-scroll");
+      const observerOptions = {
+        root: null, // viewport
+        rootMargin: "0px",
+        threshold: 0.1, // 10% of the element must be visible
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target); // Stop observing once animated
+          }
+        });
+      }, observerOptions);
+
+      animateOnScrollElements.forEach((element) => {
+        observer.observe(element);
+      });
+
+      // Search functionality
+      let originalContents = []; // To store original text nodes for clearing highlights
+
+      function clearHighlights() {
+        originalContents.forEach((item) => {
+          if (item.parent && item.parent.parentNode) {
+            // Check if parent still exists
+            item.parent.parentNode.replaceChild(item.original, item.parent);
+          }
+        });
+        originalContents = []; // Clear the array
+      }
+
+      function performSearch() {
+        clearHighlights(); // Clear previous highlights first
+
+        const searchTerm = document.getElementById("search-input").value.trim();
+        const searchMessageBox = document.getElementById("search-message-box");
+        searchMessageBox.classList.remove("show"); // Hide previous message
+
+        if (searchTerm === "") {
+          searchMessageBox.style.display = "none";
+          return;
+        }
+
+        let matchesFound = 0;
+        const mainContent = document.querySelector("main"); // Target the main content area
+
+        // Iterate over all text nodes within the main content
+        const walk = document.createTreeWalker(
+          mainContent,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        let node;
+        while ((node = walk.nextNode())) {
+          const text = node.nodeValue;
+          const lowerText = text.toLowerCase();
+          const lowerSearchTerm = searchTerm.toLowerCase();
+
+          if (lowerText.includes(lowerSearchTerm)) {
+            const parent = node.parentNode;
+            const regex = new RegExp(searchTerm, "gi"); // Case-insensitive, global
+            const newHtml = text.replace(
+              regex,
+              (match) => `<span class="highlight">${match}</span>`
+            );
+
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = newHtml;
+
+            // Store original node and its new parent (tempDiv's children)
+            while (tempDiv.firstChild) {
+              originalContents.push({
+                original: node.cloneNode(true),
+                parent: tempDiv.firstChild,
+              });
+              parent.insertBefore(tempDiv.firstChild, node);
+            }
+            parent.removeChild(node); // Remove the original text node
+            matchesFound += (text.match(regex) || []).length;
+          }
+        }
+
+        // Display search results message
+        if (matchesFound > 0) {
+          searchMessageBox.textContent = `Found ${matchesFound} occurrence(s) of "${searchTerm}".`;
+          searchMessageBox.style.display = "block";
+          searchMessageBox.classList.add("show");
+        } else {
+          searchMessageBox.textContent = `No occurrences of "${searchTerm}" found.`;
+          searchMessageBox.style.display = "block";
+          searchMessageBox.classList.add("show");
+        }
+
+        // Automatically hide message after a few seconds
+        setTimeout(() => {
+          searchMessageBox.classList.remove("show");
+          searchMessageBox.addEventListener(
+            "transitionend",
+            function handler() {
+              searchMessageBox.style.display = "none";
+              searchMessageBox.removeEventListener("transitionend", handler);
+            }
+          );
+        }, 5000);
+      }
+
+      // Attach search event listeners
+      document
+        .getElementById("search-button")
+        .addEventListener("click", performSearch);
+      document
+        .getElementById("search-input")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            performSearch();
+          }
+        });
+      document
+        .getElementById("search-input")
+        .addEventListener("input", function () {
+          if (this.value.trim() === "") {
+            clearHighlights();
+            document
+              .getElementById("search-message-box")
+              .classList.remove("show");
+            document.getElementById("search-message-box").style.display =
+              "none";
+          }
+        });
+
+      // Slideshow Logic
+      let slideIndex = 1;
+      let slideshowTimer; // To hold the interval timer
+
+      // Function to display slides
+      function showSlides(n) {
+        let i;
+        let slides = document.querySelectorAll(".slide");
+        let dots = document.querySelectorAll(".dot");
+
+        // Handle wrapping around for infinite loop
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+
+        // Adjust the container's transform to show the correct slide
+        const slideshowContainer = document.getElementById(
+          "slideshow-container"
+        );
+        if (slideshowContainer) {
+          slideshowContainer.style.transform = `translateX(-${
+            (slideIndex - 1) * 100
+          }%)`;
+        }
+
+        // Deactivate all dots
+        dots.forEach((dot) => {
+          dot.classList.remove(
+            "bg-opacity-100",
+            "scale-125",
+            "bg-accent-yellow"
+          );
+          dot.classList.add("bg-opacity-50"); // Ensure default opacity is set
+        });
+        // Activate the current dot
+        if (dots[slideIndex - 1]) {
+          dots[slideIndex - 1].classList.remove("bg-opacity-50");
+          dots[slideIndex - 1].classList.add(
+            "bg-opacity-100",
+            "scale-125",
+            "bg-accent-yellow"
+          );
+        }
+
+        // Reset and restart the auto-play timer
+        clearInterval(slideshowTimer);
+        slideshowTimer = setInterval(() => plusSlides(1), 5000); // Change image every 5 seconds
+      }
+
+      // Next/previous controls
+      function plusSlides(n) {
+        showSlides((slideIndex += n));
+      }
+
+      // Thumbnail image controls (dots)
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+
+      // Run functions when the window loads
+      window.onload = function () {
+        displayCurrentDate();
+        fetchPrayerTimes(); // Fetch real prayer times
+        loadEvents(); // Load events
+
+        // Set initial language
+        const initialLang = localStorage.getItem("appLang") || "en";
+        document.getElementById("language-switcher").value = initialLang;
+        updateContent(initialLang); // Call updateContent first to load all text
+
+        // Then set the theme, which will also call updateContent to ensure theme toggle text is correct
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          setTheme("dark"); // Default to dark theme
+        }
+
+        // Language switcher event listener
+        document
+          .getElementById("language-switcher")
+          .addEventListener("change", (event) => {
+            const newLang = event.target.value;
+            localStorage.setItem("appLang", newLang);
+            updateContent(newLang);
+          });
+
+        // Initialize slideshow
+        showSlides(slideIndex); // <--- Starts the slideshow on page load!
+      };
+    </script>
+  </body>
+</html>
